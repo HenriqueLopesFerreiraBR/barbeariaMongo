@@ -45,10 +45,10 @@ routes.put("/:id", async (req, res) => {
 //Deletando serviço
 routes.delete("/:id", async (req, res) => {
     try {
-        const deletedService = await Service.findByIdAndDelete(req.params.id);
-        res.status(205).json("Serviço Deletado");
+        const deletedService = await Service.deleteOne({_id:req.params.id});
+        res.status(202).json("Serviço Deletado");
     } catch (error) {
-        res.status(501).json(error);
+        res.status(204).json(error);
     }
 });
 
