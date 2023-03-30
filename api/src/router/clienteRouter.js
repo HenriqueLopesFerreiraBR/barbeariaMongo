@@ -71,4 +71,18 @@ routes.get('/:id', async(req,res)=>{
     }
 })
 
+// FindID
+routes.get('/name', async(req,res)=>{
+    const id = req.params.id
+    const name = req.body.name
+
+    try {
+        const cliente = await Cliente.findOne({name:name});
+        res.status(200).json(cliente)
+    } catch (error) {
+        res.status(401).json(error)
+        console.log(error)
+    }
+})
+
 module.exports = routes;
