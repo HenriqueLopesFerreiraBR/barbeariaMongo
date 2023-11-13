@@ -12,6 +12,7 @@ const userRouter = require('./src/router/userRouter')
 const serviceRouter = require('./src/router/serviceRouter')
 const clienteRouter = require('./src/router/clienteRouter')
 const AgendamentoRouter = require('./src/router/horarioRouter')
+const ProdutoRouter = require('./src/router/produtoRouter')
 
 
 const port = process.env.PORT
@@ -32,6 +33,7 @@ app.use('/api/user/',userRouter)
 app.use('/api/service/',serviceRouter)
 app.use('/api/cliente/',clienteRouter)
 app.use('/api/agendamento/',AgendamentoRouter)
+app.use('/api/produto/',ProdutoRouter)
 
 
 
