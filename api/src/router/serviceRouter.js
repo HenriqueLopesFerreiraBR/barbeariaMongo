@@ -1,77 +1,23 @@
 const express = require("express");
 const routes = express.Router();
-const Service = require("../model/serviceModel");
+const ServiceController = require("../controller/ServiceController");
 
 // Cadastrar Serviço
-routes.post("/", async (req, res) => {
-    try {
-        const newServices = new Service({
-            name: req.body.name,
-            value: req.body.value,
-        });
-
-        const createdService = await newServices.save();
-
-        res.status(201).json(createdService);
-    } catch (error) {
-        res.status(401).json(error);
-        console.log(error);
-    }
-});
+routes.post("/", ServiceController.create);
 
 // Lista de serviços
-routes.get("/", async (req, res) => {
-    try {
-        const serv = Service.find();
-        res.status(200).json(serv);
-    } catch (error) {
-        res.status(401).json(error);
-    }
-});
+routes.get("/", ServiceController.getAll);
 
 //Atualização no cadastro do Serviço
-routes.put("/:id", async (req, res) => {
-    try {
-        const udpatedService = await Service.findByIdAndUpdate(req.params.id, {
-            $set: req.body,
-        });
-
-        res.status(200).json("Serviço atualizada");
-    } catch (error) {
-        res.status(500).json(error);
-    }
-});
+routes.put("/:id", ServiceController.update);
 
 //Deletando serviço
-routes.delete("/:id", async (req, res) => {
-    try {
-        const deletedService = await Service.deleteOne({_id:req.params.id});
-        res.status(202).json("Serviço Deletado");
-    } catch (error) {
-        res.status(204).json(error);
-    }
-});
+routes.delete("/:id", ServiceController.delete);
 
 //Busca por ID
-routes.get('/:id', async(req,res)=>{
-    try {
-        const service = await Service.findById(req.params.id);
-        res.status(201).json(service);
-    } catch (error) {
-        res.status(401).json(error);
-    }
-})
-
+routes.get("/:id", ServiceController.getById);
 
 //buscar por nome
-routes.get('/name', async(req,res)=>{
-    const name = req.body.name
-    try {
-        const service = await Service.findOne(name);
-        res.status(201).json(service);
-    } catch (error) {
-        res.status(401).json(error);
-    }
-})
+routes.get("/name", ServiceController.getByName);
 
 module.exports = routes;

@@ -3,16 +3,18 @@ const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const axios = require('axios')
+const dotenv = require('dotenv')
 const connectDatabase = require('./database/connection')
+dotenv.config()
 
-
+//Rotas
 const userRouter = require('./src/router/userRouter')
 const serviceRouter = require('./src/router/serviceRouter')
 const clienteRouter = require('./src/router/clienteRouter')
 const AgendamentoRouter = require('./src/router/horarioRouter')
 
 
-const port = 3005
+const port = process.env.PORT
 
 
 // parse application/x-www-form-urlencoded
@@ -22,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors())
 
-
+//conexão com banco de dados
 connectDatabase.connectDatabase();
 
 
